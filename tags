@@ -455,6 +455,7 @@ forwardRef	public/build/_shared/chunk-BOXFZXVX.js	/^        function forwardRef(
 fullId	public/build/_shared/chunk-7SHIPDSA.js	/^  const fullId = id;$/;"	v
 functionThatReturnsFalse	public/build/_shared/chunk-GIAAE3CH.js	/^        function functionThatReturnsFalse() {$/;"	f
 functionThatReturnsTrue	public/build/_shared/chunk-GIAAE3CH.js	/^        function functionThatReturnsTrue() {$/;"	f
+generalRateLimit	server.js	/^const generalRateLimit = rateLimit(rateLimitDefault)$/;"	v
 generatePath	public/build/_shared/chunk-VG3XYZGR.js	/^function generatePath(originalPath, params) {$/;"	f
 get	public/build/_shared/chunk-GIAAE3CH.js	/^        function get(key) {$/;"	f
 getActiveElement	public/build/_shared/chunk-GIAAE3CH.js	/^        function getActiveElement(doc) {$/;"	f
@@ -523,6 +524,7 @@ getHighestPriorityLane	public/build/_shared/chunk-GIAAE3CH.js	/^        function
 getHighestPriorityLanes	public/build/_shared/chunk-GIAAE3CH.js	/^        function getHighestPriorityLanes(lanes) {$/;"	f
 getHighestPriorityPendingLanes	public/build/_shared/chunk-GIAAE3CH.js	/^        function getHighestPriorityPendingLanes(root2) {$/;"	f
 getHistoryState	public/build/_shared/chunk-VG3XYZGR.js	/^function getHistoryState(location, index) {$/;"	f
+getHost	server.js	/^const getHost = (req) => req.get("X-Forwarded-Host") ?? req.get("host") ?? "";$/;"	v
 getHostContext	public/build/_shared/chunk-GIAAE3CH.js	/^        function getHostContext() {$/;"	f
 getHostParentFiber	public/build/_shared/chunk-GIAAE3CH.js	/^        function getHostParentFiber(fiber) {$/;"	f
 getHostProps	public/build/_shared/chunk-GIAAE3CH.js	/^        function getHostProps(element, props) {$/;"	f
@@ -663,6 +665,7 @@ hideOrUnhideAllChildren	public/build/_shared/chunk-GIAAE3CH.js	/^        functio
 hideTextInstance	public/build/_shared/chunk-GIAAE3CH.js	/^        function hideTextInstance(textInstance) {$/;"	f
 higherEventPriority	public/build/_shared/chunk-GIAAE3CH.js	/^        function higherEventPriority(a, b) {$/;"	f
 higherPriorityLane	public/build/_shared/chunk-GIAAE3CH.js	/^        function higherPriorityLane(a, b) {$/;"	f
+host	server.js	/^  const host = getHost(req);$/;"	v
 htmlEscape	public/build/_shared/chunk-VG3XYZGR.js	/^    function htmlEscape(str) {$/;"	f
 hydrate	public/build/_shared/chunk-GIAAE3CH.js	/^        function hydrate(element, container, callback) {$/;"	f
 hydrateInstance	public/build/_shared/chunk-GIAAE3CH.js	/^        function hydrateInstance(instance, type, props, rootContainerInstance, hostContext, internalInstanceHandle, shouldWarnDev) {$/;"	f
@@ -880,6 +883,7 @@ markWorkInProgressReceivedUpdate	public/build/_shared/chunk-GIAAE3CH.js	/^      
 matchPath	public/build/_shared/chunk-VG3XYZGR.js	/^function matchPath(pattern, pathname) {$/;"	f
 matchRouteBranch	public/build/_shared/chunk-VG3XYZGR.js	/^function matchRouteBranch(branch, pathname) {$/;"	f
 matchRoutes	public/build/_shared/chunk-VG3XYZGR.js	/^function matchRoutes(routes, locationArg, basename) {$/;"	f
+maxMultiple	server.js	/^const maxMultiple = 1$/;"	v
 memo	public/build/_shared/chunk-BOXFZXVX.js	/^        function memo(type, compare) {$/;"	f
 mergeArrays	public/build/_shared/chunk-VG3XYZGR.js	/^function mergeArrays(...arrays) {$/;"	f
 mergeLanes	public/build/_shared/chunk-GIAAE3CH.js	/^        function mergeLanes(a, b) {$/;"	f
@@ -987,6 +991,7 @@ processUpdateQueue	public/build/_shared/chunk-GIAAE3CH.js	/^        function pro
 propagateContextChange	public/build/_shared/chunk-GIAAE3CH.js	/^        function propagateContextChange(workInProgress2, context, renderLanes2) {$/;"	f
 propagateContextChange_eager	public/build/_shared/chunk-GIAAE3CH.js	/^        function propagateContextChange_eager(workInProgress2, context, renderLanes2) {$/;"	f
 propagateSuspenseContextChange	public/build/_shared/chunk-GIAAE3CH.js	/^        function propagateSuspenseContextChange(workInProgress2, firstChild, renderLanes2) {$/;"	f
+proto	server.js	/^  const proto = req.get("X-Forwarded-Proto");$/;"	v
 push	public/build/_shared/chunk-GIAAE3CH.js	/^        function push(cursor, value, fiber) {$/;"	f
 push	public/build/_shared/chunk-GIAAE3CH.js	/^        function push(heap, node) {$/;"	f
 push	public/build/_shared/chunk-VG3XYZGR.js	/^  function push(to, state) {$/;"	f
@@ -1005,11 +1010,13 @@ pushSuspenseContext	public/build/_shared/chunk-GIAAE3CH.js	/^        function pu
 pushTopLevelContextObject	public/build/_shared/chunk-GIAAE3CH.js	/^        function pushTopLevelContextObject(fiber, context, didChange) {$/;"	f
 pushTreeFork	public/build/_shared/chunk-GIAAE3CH.js	/^        function pushTreeFork(workInProgress2, totalChildren) {$/;"	f
 pushTreeId	public/build/_shared/chunk-GIAAE3CH.js	/^        function pushTreeId(workInProgress2, totalChildren, index2) {$/;"	f
+query	server.js	/^    const query = req.url.slice(req.path.length);$/;"	v
 queueExplicitHydrationTarget	public/build/_shared/chunk-GIAAE3CH.js	/^        function queueExplicitHydrationTarget(target) {$/;"	f
 queueHydrationError	public/build/_shared/chunk-GIAAE3CH.js	/^        function queueHydrationError(error2) {$/;"	f
 queueIfContinuousEvent	public/build/_shared/chunk-GIAAE3CH.js	/^        function queueIfContinuousEvent(blockedOn, domEventName, eventSystemFlags, targetContainer, nativeEvent) {$/;"	f
 queueRecoverableErrors	public/build/_shared/chunk-GIAAE3CH.js	/^        function queueRecoverableErrors(errors) {$/;"	f
 rankRouteBranches	public/build/_shared/chunk-VG3XYZGR.js	/^function rankRouteBranches(branches) {$/;"	f
+rateLimitDefault	server.js	/^const rateLimitDefault = {$/;"	v
 readContext	public/build/_shared/chunk-GIAAE3CH.js	/^        function readContext(context) {$/;"	f
 reappearLayoutEffectsOnFiber	public/build/_shared/chunk-GIAAE3CH.js	/^        function reappearLayoutEffectsOnFiber(node) {$/;"	f
 reappearLayoutEffects_begin	public/build/_shared/chunk-GIAAE3CH.js	/^        function reappearLayoutEffects_begin(subtreeRoot) {$/;"	f
@@ -1132,6 +1139,7 @@ safelyCallDestroy	public/build/_shared/chunk-GIAAE3CH.js	/^        function safe
 safelyDecodeURI	public/build/_shared/chunk-VG3XYZGR.js	/^function safelyDecodeURI(value) {$/;"	f
 safelyDecodeURIComponent	public/build/_shared/chunk-VG3XYZGR.js	/^function safelyDecodeURIComponent(value, paramName) {$/;"	f
 safelyDetachRef	public/build/_shared/chunk-GIAAE3CH.js	/^        function safelyDetachRef(current2, nearestMountedAncestor) {$/;"	f
+safepath	server.js	/^    const safepath = req.path.slice(0, -1).replace(\/\\\/+\/g, "\/");$/;"	v
 sanitizeURL	public/build/_shared/chunk-GIAAE3CH.js	/^        function sanitizeURL(url) {$/;"	f
 saveScrollPosition	public/build/_shared/chunk-VG3XYZGR.js	/^  function saveScrollPosition(location, matches) {$/;"	f
 scheduleCallback$1	public/build/_shared/chunk-GIAAE3CH.js	/^        function scheduleCallback$1(priorityLevel, callback) {$/;"	f
@@ -1225,6 +1233,9 @@ stream	app/routes/sse.ev1.ts	/^	const stream = new ReadableStream({$/;"	v
 stringify	public/build/_shared/chunk-VG3XYZGR.js	/^  const stringify = (p) => p == null ? "" : typeof p === "string" ? p : String(p);$/;"	v
 stripBasename	public/build/_shared/chunk-VG3XYZGR.js	/^function stripBasename(pathname, basename) {$/;"	f
 stripHashFromPath	public/build/_shared/chunk-VG3XYZGR.js	/^function stripHashFromPath(path) {$/;"	f
+strongPaths	server.js	/^	const strongPaths = [$/;"	v
+strongRateLimit	server.js	/^const strongRateLimit = rateLimit({$/;"	v
+strongestRateLimit	server.js	/^const strongestRateLimit = rateLimit({$/;"	v
 subscribe	public/build/_shared/chunk-VG3XYZGR.js	/^  function subscribe(fn) {$/;"	f
 subscribeToStore	public/build/_shared/chunk-GIAAE3CH.js	/^        function subscribeToStore(fiber, inst, subscribe) {$/;"	f
 syncNestedUpdateFlag	public/build/_shared/chunk-GIAAE3CH.js	/^        function syncNestedUpdateFlag() {$/;"	f

@@ -4,10 +4,12 @@ import * as url from "node:url";
 
 import { createRequestHandler } from "@remix-run/express";
 import { broadcastDevReady, installGlobals } from "@remix-run/node";
+import helmet from "helmet";
 import compression from "compression";
 import express from "express";
 import morgan from "morgan";
 import sourceMapSupport from "source-map-support";
+import rateLimit from "express-rate-limit";
 
 sourceMapSupport.install();
 installGlobals();
@@ -27,8 +29,114 @@ const remixHandler =
       });
 
 const app = express();
+app.set("trust proxy", 1);
+
+const getHost = (req) => req.get("X-Forwarded-Host") ?? req.get("host") ?? "";
+
+// ensure HTTPS only (X-Forwarded-Proto comes from Fly)
+app.use((req, res, next) => {
+  const proto = req.get("X-Forwarded-Proto");
+  const host = getHost(req);
+  if (proto === "http") {
+    res.set("X-Forwarded-Proto", "https");
+    res.redirect(`https://${host}${req.originalUrl}`);
+    return;
+  }
+  next();
+});
+
+// no ending slashes for SEO reasons
+// https://github.com/epicweb-dev/epic-stack/discussions/108
+app.use((req, res, next) => {
+  if (req.path.endsWith("/") && req.path.length > 1) {
+    const query = req.url.slice(req.path.length);
+    const safepath = req.path.slice(0, -1).replace(/\/+/g, "/");
+    res.redirect(301, safepath + query);
+  } else {
+    next();
+  }
+});
+
+app.use(
+  helmet({
+    referrerPolicy: { policy: "same-origin" },
+    crossOriginEmbedderPolicy: false,
+    contentSecurityPolicy: {
+      // NOTE: Remove reportOnly when you're ready to enforce this CSP
+      reportOnly: true,
+      directives: {
+        "connect-src": [
+          "'self'",
+        ].filter(Boolean),
+        "font-src": ["'self'"],
+        "frame-src": ["'self'"],
+        "img-src": ["*", "data:"],
+        "script-src": [
+          "'strict-dynamic'",
+          "'self'",
+          // @ts-expect-error
+          (_, res) => `'nonce-${res.locals.cspNonce}'`,
+        ],
+        "script-src-attr": [
+          // @ts-expect-error
+          (_, res) => `'nonce-${res.locals.cspNonce}'`,
+        ],
+        "upgrade-insecure-requests": null,
+      },
+    },
+  })
+);
 
 app.use(compression());
+
+const maxMultiple = 1
+
+const rateLimitDefault = {
+	windowMs: 60 * 1000,
+	max: 1000 * maxMultiple,
+	standardHeaders: true,
+	legacyHeaders: false,
+}
+const strongestRateLimit = rateLimit({
+	...rateLimitDefault,
+	windowMs: 60 * 1000,
+	max: 10 * maxMultiple,
+})
+
+const strongRateLimit = rateLimit({
+	...rateLimitDefault,
+	windowMs: 60 * 1000,
+	max: 100 * maxMultiple,
+})
+
+const generalRateLimit = rateLimit(rateLimitDefault)
+app.use((req, res, next) => {
+	const strongPaths = [
+		'/login',
+		'/signup',
+		'/verify',
+		'/admin',
+		'/onboarding',
+		'/reset-password',
+		'/settings/profile',
+		'/resources/login',
+		'/resources/verify',
+	]
+	if (req.method !== 'GET' && req.method !== 'HEAD') {
+		if (strongPaths.some(p => req.path.includes(p))) {
+			return strongestRateLimit(req, res, next)
+		}
+		return strongRateLimit(req, res, next)
+	}
+
+	// the verify route is a special case because it's a GET route that
+	// can have a token in the query string
+	if (req.path.includes('/verify')) {
+		return strongestRateLimit(req, res, next)
+	}
+
+	return generalRateLimit(req, res, next)
+})
 
 // http://expressjs.com/en/advanced/best-practice-security.html#at-a-minimum-disable-x-powered-by-header
 app.disable("x-powered-by");
