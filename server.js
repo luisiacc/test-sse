@@ -5,6 +5,7 @@ import * as url from "node:url";
 import { createRequestHandler } from "@remix-run/express";
 import { broadcastDevReady, installGlobals } from "@remix-run/node";
 import helmet from "helmet";
+import closeWithGrace from 'close-with-grace'
 import compression from "compression";
 import express from "express";
 import morgan from "morgan";
@@ -156,13 +157,20 @@ app.use(morgan("tiny"));
 app.all("*", remixHandler);
 
 const port = process.env.PORT || 3000;
-app.listen(port, async () => {
+let server = app.listen(port, async () => {
   console.log(`Express server listening on port ${port}`);
 
   if (process.env.NODE_ENV === "development") {
     broadcastDevReady(initialBuild);
   }
 });
+
+
+closeWithGrace(async () => {
+	await new Promise((resolve, reject) => {
+		server.close(e => (e ? reject(e) : resolve('ok')))
+	})
+})
 
 /**
  * @returns {Promise<ServerBuild>}
